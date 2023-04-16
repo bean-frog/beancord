@@ -1,0 +1,22 @@
+{
+  "name": "beancord",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^24.1.2",
+    "electron-builder": "^24.2.1"
+  },
+  "build": {
+    "appId": "com.yourcompany.yourapp",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "target": "NSIS"
+    }
+  }
+}
