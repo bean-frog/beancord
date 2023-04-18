@@ -26,7 +26,7 @@ To build and run Beancord, you need to have Git, Node.js and npm (Node.js packag
 To build Beancord, you can use the following command:
 `npm run build`
 
-This will create a distributable version of the app in the `build` directory, which includes the executables for various platforms (e.g., Windows, macOS, Linux) along with the necessary resources.
+This will create a distributable version of the app in the `dist` directory, which includes the executables for various platforms (e.g., Windows, macOS, Linux) along with the necessary resources.
 
 ## Run
 
