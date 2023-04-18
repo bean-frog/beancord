@@ -8,7 +8,7 @@ come back later
 
 ## Prerequisites
 
-To build and run the Electron app, you need to have Node.js and npm (Node.js package manager) installed on your machine.
+To build and run Beancord, you need to have Git, Node.js and npm (Node.js package manager) installed on your machine.
 
 ## Installation
 
