@@ -11,12 +11,15 @@
     "electron-builder": "^24.2.1"
   },
   "build": {
-    "appId": "com.yourcompany.yourapp",
-    "directories": {
-      "output": "build"
+    "appId": "com.beanfrog.beancord",
+    "mac": {
+      "target": "dmg"
     },
     "win": {
-      "target": "NSIS"
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
     }
   }
 }
