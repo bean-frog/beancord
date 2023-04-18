@@ -34,3 +34,4 @@ To run beancord in development mode, you can use the following npm script:
 `npm run start`
 
 This will start Beancord and open a window with your app running inside. You can make changes to the source code and see the changes reflected in the app without rebuilding it.
+if theres a bunch of errors just try running `npm audit fix --force` which might break shit but usually it doesnt and everything works
