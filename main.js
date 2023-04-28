@@ -13,7 +13,9 @@ app.on('ready', () => {
     }
   });
 
+  mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL('https://discord.com/login');
+  mainWindow.maximize();
 
   mainWindow.on('closed', () => {
     app.quit();
