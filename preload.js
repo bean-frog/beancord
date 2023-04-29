@@ -1,16 +1,26 @@
-
 (function() {
     'use strict';
 
     // Function to append div with innerHTML string
     const appendDiv = () => {
-        const targetElement = document.querySelector('div.contentColumn-1C7as6.contentColumnDefault-3eyv5o#my-account-tab');
 
+        const content_region = document.querySelector('.contentRegionScroller-2_GT_N');
+        const targetElement = content_region; //document.querySelector('div.contentColumn-1C7as6.contentColumnDefault-3eyv5o#my-account-tab');
+        
         if (targetElement && targetElement.style.display !== 'none' && !targetElement.hasAttribute('data-appended')) {
+            const beancord_tab = document.createElement('div');
+            beancord_tab.classList.add('contentColumn-1C7as6', 'contentColumnDefault-3eyv5o');
+            beancord_tab.setAttribute('role', 'tabpanel');
+            beancord_tab.setAttribute('id', 'beancord_tab');
+            beancord_tab.setAttribute('tabindex', '-1');
+            beancord_tab.setAttribute('data-appended', 'true');
+            beancord_tab.style.display = 'none';
+            
             // Create a new div element
-            const div = document.createElement('div');
-            div.setAttribute('id', 'beancordmenu');
-            div.innerHTML = `
+            const beancord_menu = document.createElement('div');
+            beancord_menu.setAttribute('id', 'beancord_menu');
+            //beancord_menu.style.display = 'none';
+            beancord_menu.innerHTML = `
             <div class="sectionTitle-LdcnyP">
                 <h2 class="h1-3iMExa title-lXcL8p defaultColor-3Olr-9 defaultMarginh1-1UYutH">Beancord Settings</h2>
             </div>
@@ -24,7 +34,9 @@
             `; // Replace with your desired innerHTML string
 
             // Append the div as the first child of the target element
-            targetElement.insertBefore(div, targetElement.firstChild);
+            beancord_tab.appendChild(beancord_menu);
+            content_region.appendChild(beancord_tab);
+            //targetElement.insertBefore(beancord_menu, targetElement.firstChild);
 
             // Add class to the first element with class "sectionTitle-LdcnyP"
             const sectionTitleElement = document.querySelector('.sectionTitle-LdcnyP:not(.marginTop40-Q4o1tS)');
@@ -766,14 +778,22 @@
     `;
     // Run the checkAndAppendDiv function every 500 milliseconds
     const checkInterval = setInterval(checkAndAppendDiv, 500);
+
+    function createMenuTabButton() {
+
+    }
+
 // Function to inject custom CSS rules and append buttons
 function injectCustomStylesAndButtons() {
- 
+
+    const discord_cog = document.querySelector('.flex-2S1XBF button:last-child');
+    discord_cog.addEventListener('click', function() {
+        createMenuTabButton();
+    })
 
   const styleElement = document.createElement('style');
   document.head.appendChild(styleElement);
   
-
   const button1 = document.getElementById('theme1');
   button1.addEventListener('click', () => {
     styleElement.textContent = customStyles1;
@@ -788,7 +808,65 @@ function injectCustomStylesAndButtons() {
       console.log('theme 2 button pressed');
     });
   }
+
+    const user_settings = document.querySelector('.side-1lrxIh');
+
+    const beancord_settings = document.createElement('div');
+    beancord_settings.style = "margin-bottom: 5px;"
+    beancord_settings.setAttribute('class', 'item-2GWPIy themed-qqoYp3');
+    beancord_settings.setAttribute('role', 'tab');
+    beancord_settings.setAttribute('aria-selected', 'true');
+    beancord_settings.setAttribute('aria-controls', 'Beancord');
+    beancord_settings.setAttribute('aria-disabled', 'false');
+    beancord_settings.setAttribute('tabindex', '0');
+    beancord_settings.setAttribute('aria-label', 'Beancord');
+    beancord_settings.id = 'beancord_settings';
+    beancord_settings.textContent = 'Beancord';
+
+    user_settings.insertBefore(beancord_settings, user_settings.firstChild);
+
+    const beancord_tab = document.getElementById('beancord_tab');
+    const menu_container = beancord_tab.parentElement;
+
+    beancord_settings.addEventListener('click', function() {
+        beancord_settings.classList.add('selected-1sf9UK');
+        document.getElementById('beancord_tab').style.display = 'block';
+
+        // Hide all the child nodes of menu_container
+        const toolsContainer = document.querySelector('.toolsContainer-25FL6V');
+        for (let i = 0; i < menu_container.children.length; i++) {
+            const child = menu_container.children[i];
+            if (child !== beancord_tab && child !== toolsContainer) {
+              child.style.display = 'none';
+            }
+        }              
+
+        beancord_tab.style.display = 'block';
+    })
+
+    user_settings.addEventListener('click', (event) => {
+        // Check if the clicked element is not beancord_settings
+        if (event.target !== beancord_settings) {
+          // Remove 'selected-1sf9UK' class from all elements except beancord_settings
+          document.querySelectorAll('.selected-1sf9UK:not(#beancord_settings)').forEach(element => {
+            element.classList.remove('selected-1sf9UK');
+          });
+          beancord_settings.classList.remove('selected-1sf9UK');
+          beancord_tab.style.display = 'none';
+          for (let i = 0; i < menu_container.children.length; i++) {
+            if (menu_container.children[i] !== beancord_tab) {
+              menu_container.children[i].style.display = 'block';
+            }
+          }
+        } else {
+          // Remove 'selected-1sf9UK' class from beancord_settings
+          beancord_settings.classList.remove('selected-1sf9UK');
+        }
+        // Add 'selected-1sf9UK' class to clicked element
+        event.target.classList.add('selected-1sf9UK');
+    });       
 }
+
 window.addEventListener('DOMContentLoaded', function() {
   const styleElement = document.createElement('style');
   document.head.appendChild(styleElement);
@@ -850,6 +928,5 @@ document.addEventListener('DOMContentLoaded', () => {
     intersectionObserver.observe(element);
   }
 });
-
 
 })();
