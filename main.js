@@ -3,23 +3,24 @@ const path = require('path');
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+    width: 1000,
+    height: 600,
+    icon: 'img/beancord.ico',
     webPreferences: {
       nodeIntegration: true,
-      // Enable webviewTag to allow using <webview> tag in the renderer process
-      webviewTag: true,
+      webviewTag: true, // Enable webviewTag to allow using <webview> tag in the renderer process
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.loadURL('https://discord.com/login');
+  mainWindow.loadURL('https://discord.com/app');
   mainWindow.maximize();
 
   mainWindow.on('closed', () => {
     app.quit();
   });
+
   // Add custom CSS styles using insertCSS
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.webContents.insertCSS(`
@@ -31,6 +32,7 @@ app.on('ready', () => {
    }
     `);
   });
+
   // Register global shortcuts for keybindings
   globalShortcut.register('CmdOrCtrl+Shift+R', () => {
     mainWindow.reload();
